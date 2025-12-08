@@ -264,7 +264,6 @@ with tabs[1]:
             if df is not None and not df.empty:
                 st.write("### Transactions Extracted:")
                 st.dataframe(df.head())
-                st.write("Columns extracted:", df.columns.tolist())
 
             with st.spinner("cleaning data from your statement ..."):
                 st.write('')
