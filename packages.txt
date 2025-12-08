@@ -2,3 +2,4 @@ build-essential
 libsm6
 libxext6
 libxrender1
+poppler-utils
