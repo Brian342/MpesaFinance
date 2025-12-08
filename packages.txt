@@ -1,4 +1,3 @@
-# Clean packages.txt content
 build-essential
 libsm6
 libxext6
