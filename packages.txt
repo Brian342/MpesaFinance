@@ -1,13 +1,5 @@
-# packages.txt content
-# Common libraries for building Python packages,
-# often needed for NumPy/Pandas and other C extensions
+# Clean packages.txt content
 build-essential
-
-# Libraries needed for image and graphics processing (common dependencies)
 libsm6
 libxext6
 libxrender1
-
-# Optional: If you run into specific compilation errors, you might need:
-# python3-dev
-# libz-dev
