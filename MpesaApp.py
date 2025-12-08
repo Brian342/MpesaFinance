@@ -269,30 +269,26 @@ with tabs[1]:
             with st.spinner("cleaning data from your statement ..."):
                 st.write('')
                 st.write('### Cleaned Statement:')
-                if df is None or df.empty:
-                    st.error("Failed to extract data from the PDF. Try another PDF or check the password.")
+                # code having issues
+                if df is None:
+                    st.error(
+                        "PDF extraction failed. Your PDF may be password-protected, corrupted, or incompatible with cloud processing.")
                     st.stop()
+
+                if not isinstance(df, pd.DataFrame):
+                    st.write("Debug: df type is:", type(df))
+                    st.error("The system expected a table but received something else. Extraction broke.")
+                    st.stop()
+
+                if df.empty:
+                    st.error("No transactions found in the MPesa statement.")
+                    st.stop()
+
                 data = df.copy()
 
-                data.columns = data.columns.str.strip().str.replace(r'\s+', ' ', regex=True)
-
-                # Debug print
-                st.write("Normalized columns:", data.columns.tolist())
-
-                cols = {
-                    "Paid in": "Paid in",
-                    "Withdraw": "Withdraw",
-                    "Withdraw rn": "Withdraw",
-                    "Withdraw\rn": "Withdraw",
-                }
-
-                for old, new in cols.items():
-                    if old in data.columns:
-                        data[new] = data[old].apply(lambda x: remove_comma(x))
-
-                # data['Paid in'] = data['Paid in'].apply(lambda x: remove_comma(x))
-                # data['Withdraw\rn'] = data['Withdraw\rn'].apply(lambda x: remove_comma(x))
-                # data['Balance'] = data['Balance'].apply(lambda x: remove_comma(x))
+                data['Paid in'] = data['Paid in'].apply(lambda x: remove_comma(x))
+                data['Withdraw\rn'] = data['Withdraw\rn'].apply(lambda x: remove_comma(x))
+                data['Balance'] = data['Balance'].apply(lambda x: remove_comma(x))
 
                 # changing the data type
                 data = data.astype({
