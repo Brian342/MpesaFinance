@@ -22,59 +22,45 @@ from cleaning import *
 
 st.set_page_config(page_title="MpesaFinancial - Pro", layout="wide", initial_sidebar_state="expanded")
 
-AUTO_THEME_SCRIPT = """
-    <script>
-(function() {
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const root = document.documentElement;
-  if (prefersDark) {
-    root.setAttribute('data-theme', 'dark');
-  } else {
-    root.setAttribute('data-theme', 'light');
-  }
-})();
-</script>
-"""
 
 CUSTOM_CSS = r"""
     <style>
 :root[data-theme="light"] {
   /* BACKGROUNDS */
-  --bg: #FFFFFF; /* Main content background (White) */
-  --card: #F9F9F9; /* Card background (Very Light Gray) */
+  --bg: #F5FFF5; /* Main content background (Very Light Green/Off-White) */
+  --card: #FFFFFF; /* Card background (Pure White) */
   /* TEXT & ACCENTS */
   --text: #000000; /* Primary text (Black) */
-  --accent1: #0080FF; /* Primary accent color (Bright Blue) */
+  --accent1: #2ECC71; /* Primary accent color (Bright Green) */
 }
 :root[data-theme="dark"] {
-  /* I recommend keeping a dark theme for users who prefer it, 
-     but update the accent to match the bright blue for consistency. */
+  /* Keeping a dark theme but updating the accent to the Bright Green */
   --bg: #1e1e1e; 
   --card: #2c2c2c;
   --text: #ffffff;
-  --accent1: #0080FF; /* Bright Blue */
+  --accent1: #2ECC71; /* Bright Green */
 }
 
 /* * Apply new color scheme to Streamlit elements 
- * Removing the 'glass card' effect for a cleaner, light look.
+ * Focus on the clean White/Green look.
  */
 main .block-container {
   background: var(--bg);
   padding: 1.6rem 2rem;
 }
 
-/* Sidebar Styling (Matching the dark sidebar in the image) */
+/* Sidebar Styling (Matching the dark blue/teal sidebar in the image) */
 section[data-testid="stSidebar"] {
-  background-color: #202020; /* Dark Sidebar background */
+  background-color: #2C3E50; /* Dark Blue/Teal Sidebar background */
 }
 /* Change sidebar links to white */
 section[data-testid="stSidebar"] .css-1d391kg {
   color: #ffffff; /* Text color for sidebar links */
   background: transparent;
 }
-/* Active sidebar link background */
+/* Active sidebar link background (Using the Bright Green accent) */
 section[data-testid="stSidebar"] .st-b5.st-b6 {
-    background-color: var(--accent1); /* Bright Blue */
+    background-color: var(--accent1); /* Bright Green */
     color: #ffffff; /* White text on active link */
     border-radius: 14px;
 }
@@ -89,112 +75,50 @@ section[data-testid="stSidebar"] .st-b5.st-b6 {
 }
 .logo-circle {
   width:56px;height:56px;border-radius:12px;
-  background: var(--accent1); /* Bright Blue */
+  background: var(--accent1); /* Bright Green */
   display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
-  box-shadow: 0 4px 10px rgba(0,128,255,0.25);
+  box-shadow: 0 4px 10px rgba(46, 204, 113, 0.25);
 }
 
-/* Card style used in columns - use the lighter background */
+/* Card style used in columns (e.g., the upload area) */
 .card {
-  background: var(--card); /* Very Light Gray */
-  border: 1px solid #e0e0e0; /* Subtle light border */
+  background: var(--card); /* Pure White */
+  border: 1px solid #E0F5E0; /* Very light green border */
   padding: 16px;
   border-radius: 12px;
 }
 
-/* small pills */
+/* Styling the buttons (like the 'Analyze' button) */
+.stButton button {
+    background-color: #4CAF50 !important; /* Slightly darker Green for button */
+    color: white !important;
+    border: none !important;
+}
+
+/* Small pills */
 .pill {
-  display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:#eef0f2; /* A light, neutral pill background */
+  display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:#E0F5E0; /* A light green pill background */
   color: #333333;
 }
 
 /* bot bubble */
 .bot {
-  background: var(--card); /* Use the light card background */
+  background: var(--card); /* Use the white card background */
   color: var(--text);
   padding: 10px 12px;border-radius:12px;margin:6px 0;
 }
+
+/* Error/Failure Text (matching the red color in the image) */
+.stAlert > div[data-testid="stMarkdownContainer"] h3 {
+    color: #E74C3C !important; /* Red for errors */
+}
+
 </style>
 """
 
-st.markdown(AUTO_THEME_SCRIPT, unsafe_allow_html=True)
+# st.markdown(AUTO_THEME_SCRIPT, unsafe_allow_html=True)
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
-with st.sidebar:
-    st.markdown(
-        "<div style='display:flex;align-items:center;gap:10px'><div class='logo-circle'>MF</div><div><h3 style='margin:0'>MpesaFinance</h3><div style='font-size:12px;color:gray'>Prophet · Sklearn · Explainability</div></div></div>",
-        unsafe_allow_html=True)
-    st.markdown("------")
-    email = st.text_input("Your email (option)", placeholder="you@example.com")
-    st.markdown("**Quick Settings**")
-    show_explain = st.checkbox("Show explanation", value=True)
-
-    # --- THEME TOGGLE ---
-    st.markdown("### 🌓 Theme")
-    st.markdown("""
-    <style>
-    .toggle-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(255,255,255,0.04);
-      padding: 8px 14px;
-      border-radius: 12px;
-      margin-top: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .toggle-switch {
-      width: 42px;
-      height: 22px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 999px;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    .toggle-ball {
-      width: 18px;
-      height: 18px;
-      background: white;
-      border-radius: 50%;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      transition: all 0.3s ease;
-    }
-    [data-theme='dark'] .toggle-ball {
-      transform: translateX(20px);
-      background: linear-gradient(45deg, #06b6d4, #7c3aed);
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    # toggle logic
-    if "theme_mode" not in st.session_state:
-        st.session_state.theme_mode = "auto"
-
-    colA, colB, colC = st.columns([1, 1, 1])
-    with colA:
-        if st.button("☀️ Light"):
-            st.session_state.theme_mode = "light"
-    with colB:
-        if st.button("🌙 Dark"):
-            st.session_state.theme_mode = "dark"
-    with colC:
-        if st.button("⚙️ Auto"):
-            st.session_state.theme_mode = "auto"
-
-    if st.session_state.theme_mode == "light":
-        st.markdown("<script>document.documentElement.setAttribute('data-theme', 'light');</script>",
-                    unsafe_allow_html=True)
-    elif st.session_state.theme_mode == "dark":
-        st.markdown("<script>document.documentElement.setAttribute('data-theme', 'dark');</script>",
-                    unsafe_allow_html=True)
-    else:
-        st.markdown(AUTO_THEME_SCRIPT, unsafe_allow_html=True)
-
-    st.markdown("------")
-    st.caption("Built w/ Sklearn + Prophet . prototype")
 
 tabs = st.tabs(["Overview", "Upload & Query", "Insight", "Settings"])
 
