@@ -39,57 +39,79 @@ AUTO_THEME_SCRIPT = """
 CUSTOM_CSS = r"""
     <style>
 :root[data-theme="light"] {
-  --bg: #0f172a;
-  --card: rgba(255,255,255,0.06);
-  --text: #0b1220;
-  --accent1: linear-gradient(90deg,#7c3aed, #06b6d4);
+  /* BACKGROUNDS */
+  --bg: #FFFFFF; /* Main content background (White) */
+  --card: #F9F9F9; /* Card background (Very Light Gray) */
+  /* TEXT & ACCENTS */
+  --text: #000000; /* Primary text (Black) */
+  --accent1: #0080FF; /* Primary accent color (Bright Blue) */
 }
 :root[data-theme="dark"] {
-  --bg: #070812;
-  --card: rgba(255,255,255,0.04);
-  --text: #dbeafe;
-  --accent1: linear-gradient(90deg,#06b6d4, #7c3aed);
+  /* I recommend keeping a dark theme for users who prefer it, 
+     but update the accent to match the bright blue for consistency. */
+  --bg: #1e1e1e; 
+  --card: #2c2c2c;
+  --text: #ffffff;
+  --accent1: #0080FF; /* Bright Blue */
 }
 
-/* Apply glass card effect to streamlit elements */
+/* * Apply new color scheme to Streamlit elements 
+ * Removing the 'glass card' effect for a cleaner, light look.
+ */
 main .block-container {
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+  background: var(--bg);
   padding: 1.6rem 2rem;
 }
+
+/* Sidebar Styling (Matching the dark sidebar in the image) */
+section[data-testid="stSidebar"] {
+  background-color: #202020; /* Dark Sidebar background */
+}
+/* Change sidebar links to white */
 section[data-testid="stSidebar"] .css-1d391kg {
+  color: #ffffff; /* Text color for sidebar links */
   background: transparent;
 }
+/* Active sidebar link background */
+section[data-testid="stSidebar"] .st-b5.st-b6 {
+    background-color: var(--accent1); /* Bright Blue */
+    color: #ffffff; /* White text on active link */
+    border-radius: 14px;
+}
+/* General element styling */
 .css-1d391kg, .css-1d391kg .stButton button {
   border-radius: 14px;
 }
 
-/* Title style */
+/* Title style - use accent for logo circle and primary text for the title */
 .header {
   display:flex; align-items:center; gap:12px;
 }
 .logo-circle {
   width:56px;height:56px;border-radius:12px;
-  background: var(--accent1);
+  background: var(--accent1); /* Bright Blue */
   display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
-  box-shadow: 0 8px 30px rgba(99,102,241,0.15);
+  box-shadow: 0 4px 10px rgba(0,128,255,0.25);
 }
 
-/* Card style used in columns */
+/* Card style used in columns - use the lighter background */
 .card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border: 1px solid rgba(255,255,255,0.04);
+  background: var(--card); /* Very Light Gray */
+  border: 1px solid #e0e0e0; /* Subtle light border */
   padding: 16px;
   border-radius: 12px;
 }
 
 /* small pills */
 .pill {
-  display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:rgba(255,255,255,0.03);
+  display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:#eef0f2; /* A light, neutral pill background */
+  color: #333333;
 }
 
 /* bot bubble */
 .bot {
-  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background: var(--card); /* Use the light card background */
+  color: var(--text);
   padding: 10px 12px;border-radius:12px;margin:6px 0;
 }
 </style>
