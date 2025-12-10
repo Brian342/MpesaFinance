@@ -43,8 +43,8 @@ The M-Pesa Finance App is an AI-powered personal finance assistant built to clea
 # Installation
 1. Clone the repository
 ``` bash
-https://github.com/Brian342/MpesaFinance
-cd MpesaApp
+git clone https://github.com/Brian342/MpesaFinance
+cd MpesaApp.py
 ```
 
 2. Install dependencies
