@@ -13,3 +13,4 @@ seaborn
 streamlit
 tabula
 tabula_py
+jpype1
