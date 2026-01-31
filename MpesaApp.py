@@ -312,6 +312,13 @@ with tabs[1]:
                 })
                 final_data.set_index('Receipt', inplace=True)
 
+                # ensure numeric types for plotting (avoid categorical/parsing warnings)
+                final_data['Month'] = pd.to_numeric(final_data['Month'], errors='coerce')
+                final_data['Date'] = pd.to_numeric(final_data['Date'], errors='coerce')
+                final_data['Hour'] = pd.to_numeric(final_data['Hour'], errors='coerce')
+                final_data['Transaction_amount'] = pd.to_numeric(final_data['Transaction_amount'], errors='coerce')
+                final_data['Balance'] = pd.to_numeric(final_data['Balance'], errors='coerce')
+
                 st.dataframe(final_data.head())
                 final_data.to_csv("statement_cleaned")
                 st.session_state["final_data"] = final_data
@@ -366,7 +373,7 @@ with tabs[2]:
             plot = sns.barplot(data=final_data,
                                x='Weekday', y='Transaction_amount', color='#439534', errorbar=None,
                                )
-            plt.xlabel('Weekday', fontsize=0)
+            plt.xlabel('Weekday', fontsize=1)
             plt.xticks(fontsize=20)
             plt.ylabel('Transaction Amount', fontsize=20)
             plt.yticks(fontsize=20)
@@ -401,7 +408,7 @@ with tabs[2]:
             plot.set_xlim(min(existing_months) - 0.5, max(existing_months) + 0.5)
 
             plt.xticks(fontsize=20)
-            plt.xlabel("Month", fontsize=0)
+            plt.xlabel("Month", fontsize=1)
             plt.ylabel("Transaction Amount", fontsize=20)
             plt.yticks(fontsize=20)
             st.pyplot(plt)
@@ -471,7 +478,7 @@ with tabs[2]:
                           order=filtered_data['Transaction_type'].value_counts().index)
             plt.xlabel('Count', fontsize=20)
             plt.xticks(fontsize=17)
-            plt.ylabel('Transaction Type', fontsize=0)
+            plt.ylabel('Transaction Type', fontsize=1)
             plt.yticks(fontsize=15)
             st.pyplot(plt)
             plt.close()
@@ -491,7 +498,7 @@ with tabs[2]:
             sns.barplot(data=Grouped_avg_type, y='Transaction_type', x='Transaction_amount',
                         order=Grouped_avg_type['Transaction_type'], color='#439534')
             plt.xlabel('Amount', fontsize=20)
-            plt.ylabel('Transaction_Type', fontsize=0)
+            plt.ylabel('Transaction_Type', fontsize=1)
             plt.xticks(fontsize=17)
             plt.yticks(fontsize=15)
             st.pyplot(plt)
