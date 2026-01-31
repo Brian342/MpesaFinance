@@ -11,7 +11,7 @@ python_dateutil
 scikit_learn
 seaborn
 streamlit
-altair
+altair==4.2.2new 
 tabula
 tabula_py
 jpype1
