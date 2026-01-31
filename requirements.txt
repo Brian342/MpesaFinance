@@ -11,6 +11,7 @@ python_dateutil
 scikit_learn
 seaborn
 streamlit
+altair
 tabula
 tabula_py
 jpype1
