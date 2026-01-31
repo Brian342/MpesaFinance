@@ -15,4 +15,5 @@ altair==4.2.2
 tabula
 tabula_py
 jpype1
+pyarrow==11.0.0
 ./local_imghdr
