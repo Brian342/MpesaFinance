@@ -11,9 +11,8 @@ python_dateutil
 scikit_learn
 seaborn
 streamlit
-altair
+altair<5
 tabula
 tabula_py
 jpype1
 pyarrow
-./local_imghdr
