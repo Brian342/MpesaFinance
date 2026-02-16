@@ -11,9 +11,9 @@ python_dateutil
 scikit_learn
 seaborn
 streamlit
-altair==4.2.2
+altair
 tabula
 tabula_py
 jpype1
-pyarrow==11.0.0
+pyarrow
 ./local_imghdr
