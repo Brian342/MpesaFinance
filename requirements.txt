@@ -1,4 +1,25 @@
-Flask
+# Flask
+# matplotlib
+# numpy
+# pdfplumber
+# pikepdf
+# plotly
+# prophet
+# PyPDF2
+# python_dateutil
+# scikit_learn
+# seaborn
+# tabula
+# tabula_py
+# jpype1
+# streamlit==1.37.0
+# pandas==2.2.2
+# pyarrow==14.0.1
+# altair<5
+streamlit==1.37.0
+pandas==2.2.2
+pyarrow==14.0.1
+altair<5
 matplotlib
 numpy
 pdfplumber
@@ -6,13 +27,8 @@ pikepdf
 plotly
 prophet
 PyPDF2
-python_dateutil
-scikit_learn
+python-dateutil
+scikit-learn
 seaborn
-tabula
-tabula_py
+tabula-py
 jpype1
-streamlit==1.37.0
-pandas==2.2.2
-pyarrow==14.0.1
-altair<5
