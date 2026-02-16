@@ -312,15 +312,25 @@ with tabs[1]:
                 })
                 final_data.set_index('Receipt', inplace=True)
 
-                # ensure numeric types for plotting (avoid categorical/parsing warnings)
+                # 1. Ensure numeric types (Your existing logic)
                 final_data['Month'] = pd.to_numeric(final_data['Month'], errors='coerce')
                 final_data['Date'] = pd.to_numeric(final_data['Date'], errors='coerce')
                 final_data['Hour'] = pd.to_numeric(final_data['Hour'], errors='coerce')
                 final_data['Transaction_amount'] = pd.to_numeric(final_data['Transaction_amount'], errors='coerce')
                 final_data['Balance'] = pd.to_numeric(final_data['Balance'], errors='coerce')
 
+                # 2. FIX FOR "LargeUtf8" ERROR: Force all object columns to standard strings
+                for col in final_data.select_dtypes(include=['object']).columns:
+                    final_data[col] = final_data[col].astype(str)
+
+                # 3. Final safety check: replace any potentially problematic 'None' or 'NaN' in strings
+                final_data = final_data.fillna('')
+
+                # Display the cleaned data
                 st.dataframe(final_data.head())
-                final_data.to_csv("statement_cleaned")
+                
+                # Save to CSV and session state
+                final_data.to_csv("statement_cleaned.csv", index=True) # Added .csv extension
                 st.session_state["final_data"] = final_data
 
     with col2:
