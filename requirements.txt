@@ -16,9 +16,9 @@
 # pandas==2.2.2
 # pyarrow==14.0.1
 # altair<5
-streamlit==1.37.0
-pandas==2.2.2
-pyarrow==14.0.1
+streamlit
+pandas
+pyarrow
 altair<5
 matplotlib
 numpy
