@@ -1,7 +1,6 @@
 Flask
 matplotlib
 numpy
-pandas
 pdfplumber
 pikepdf
 plotly
@@ -10,9 +9,10 @@ PyPDF2
 python_dateutil
 scikit_learn
 seaborn
-streamlit
-altair<5
 tabula
 tabula_py
 jpype1
-pyarrow
+streamlit==1.37.0
+pandas==2.2.2
+pyarrow==14.0.1
+altair<5
